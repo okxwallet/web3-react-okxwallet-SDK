@@ -11,7 +11,7 @@ Support web3-react(https://github.com/Uniswap/web3-react)
 # Example 
 ``` javascript
     import { initializeConnector } from '@web3-react/core'
-    import { OKXWallet } from '.'
+    import { OKXWallet } from ' @okwallet/web3-react-okxwallet'
 
     export const [okxWallet, hooks] = initializeConnector<OKXWallet>((actions) => new OKXWallet({ actions }))
 ```
