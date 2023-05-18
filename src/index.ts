@@ -31,7 +31,7 @@ function parseChainId(chainId: string) {
 }
 
 /**
- * @param options - Options to pass to `@metamask/detect-provider`
+ * @param options - Options to pass to `detectEthereumProvider`
  * @param onError - Handler to report errors thrown from eventListeners.
  */
 export interface OKXWalletConstructorArgs {
@@ -60,7 +60,7 @@ export class OKXWallet extends Connector {
       if (provider) {
         this.provider = provider as OKXWalletProvider
 
-        // handle the case when e.g. metamask and coinbase wallet are both installed
+        // handle the case when e.g. okxwallet and metamask wallet are both installed
         if (this.provider.providers?.length) {
           this.provider = this.provider.providers.find((p) => p.isOkxWallet) ?? this.provider.providers[0]
         }
@@ -70,10 +70,8 @@ export class OKXWallet extends Connector {
         })
 
         this.provider.on('disconnect', (error: ProviderRpcError): void => {
-          // 1013 indicates that MetaMask is attempting to reestablish the connection
-          // https://github.com/MetaMask/providers/releases/tag/v8.0.0
           if (error?.code === 1013) {
-            console.debug('MetaMask logged connection error 1013: "Try again later"')
+            console.debug('OKXWallet logged connection error 1013: "Try again later"')
             return
           }
           this.actions.resetState()
@@ -112,7 +110,7 @@ export class OKXWallet extends Connector {
       this.actions.update({ chainId: parseChainId(chainId), accounts })
     } catch (error) {
       console.debug('Could not connect eagerly', error)
-      // we should be able to use `cancelActivation` here, but on mobile, metamask emits a 'connect'
+      // we should be able to use `cancelActivation` here, but on mobile, OKXWallet emits a 'connect'
       // event, meaning that chainId is updated, and cancelActivation doesn't work because an intermediary
       // update has occurred, so we reset state instead
       this.actions.resetState()
@@ -159,11 +157,8 @@ export class OKXWallet extends Connector {
             params: [{ chainId: desiredChainIdHex }],
           })
           .catch((error: ProviderRpcError) => {
-            // https://github.com/MetaMask/metamask-mobile/issues/3312#issuecomment-1065923294
             const errorCode = (error.data as any)?.originalError?.code || error.code
 
-            // 4902 indicates that the chain has not been added to MetaMask and wallet_addEthereumChain needs to be called
-            // https://docs.metamask.io/guide/rpc-api.html#wallet-switchethereumchain
             if (errorCode === 4902 && typeof desiredChainIdOrChainParameters !== 'number') {
               if (!this.provider) throw new Error('No provider')
               // if we're here, we can try to add a new network
