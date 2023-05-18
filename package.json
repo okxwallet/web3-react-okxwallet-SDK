@@ -1,5 +1,5 @@
 {
-  "name": "@web3-react/okxwallet",
+  "name": "@okwallet/web3-react-okxwallet-SDK",
   "keywords": [
     "web3-react",
     "okxwallet"
@@ -8,6 +8,7 @@
   "license": "GPL-3.0-or-later",
   "repository": "github:Uniswap/web3-react",
   "publishConfig": {
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "version": "8.2.1",
@@ -24,7 +25,6 @@
     "start": "cp -R src/detectEthereumProvider dist/detectEthereumProvider && tsc --watch"
   },
   "dependencies": {
-    "@metamask/detect-provider": "^1.2.0",
     "@web3-react/types": "^8.2.0"
   },
   "devDependencies": {
