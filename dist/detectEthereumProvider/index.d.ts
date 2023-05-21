@@ -14,7 +14,7 @@ export = detectEthereumProvider
  * are provided.
  *
  * @param options - Options bag.
- * @param options.mustBeOKXWallet - Whether to only look for MetaMask providers.
+ * @param options.mustBeOKXWallet - Whether to only look for OKXWallet providers.
  * Default: false
  * @param options.silent - Whether to silence console errors. Does not affect
  * thrown errors. Default: false

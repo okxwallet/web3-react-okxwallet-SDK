@@ -12,7 +12,7 @@ export declare class NoOKXWalletError extends Error {
     constructor();
 }
 /**
- * @param options - Options to pass to `@metamask/detect-provider`
+ * @param options - Options to pass to `detectEthereumProvider`
  * @param onError - Handler to report errors thrown from eventListeners.
  */
 export interface OKXWalletConstructorArgs {
