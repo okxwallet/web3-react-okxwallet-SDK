@@ -11,7 +11,7 @@
     "registry": "https://registry.npmjs.org",
     "access": "public"
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "files": [
     "dist/*"
   ],
@@ -21,8 +21,8 @@
   "exports": "./dist/index.js",
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "tsc && cp -R src/detectEthereumProvider dist/detectEthereumProvider",
-    "start": "cp -R src/detectEthereumProvider dist/detectEthereumProvider && tsc --watch"
+    "build": "tsc && cp -R src/detectEthereumProvider dist",
+    "start": "cp -R src/detectEthereumProvider dist && tsc --watch"
   },
   "dependencies": {
     "@web3-react/types": "^8.2.0"
