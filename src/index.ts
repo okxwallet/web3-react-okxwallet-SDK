@@ -127,6 +127,11 @@ export class OKXWallet extends Connector {
    * specified parameters first, before being prompted to switch.
    */
   public async activate(desiredChainIdOrChainParameters?: number | AddEthereumChainParameter): Promise<void> {
+    if (!this.provider) {
+      window.open('https://www.okx.com/download', '_blank')
+      return
+    }
+
     let cancelActivation: () => void
     if (!this.provider?.isConnected?.()) cancelActivation = this.actions.startActivation()
 
