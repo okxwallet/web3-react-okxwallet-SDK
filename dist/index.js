@@ -128,17 +128,15 @@ class OKXWallet extends types_1.Connector {
     activate(desiredChainIdOrChainParameters) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
-            if (!this.provider) {
-                window.open('https://www.okx.com/download', '_blank');
-                return;
-            }
             let cancelActivation;
             if (!((_b = (_a = this.provider) === null || _a === void 0 ? void 0 : _a.isConnected) === null || _b === void 0 ? void 0 : _b.call(_a)))
                 cancelActivation = this.actions.startActivation();
             return this.isomorphicInitialize()
                 .then(() => __awaiter(this, void 0, void 0, function* () {
-                if (!this.provider)
+                if (!this.provider) {
+                    window.open('https://www.okx.com/download', '_blank');
                     throw new NoOKXWalletError();
+                }
                 // Wallets may resolve eth_chainId and hang on eth_accounts pending user interaction, which may include changing
                 // chains; they should be requested serially, with accounts first, so that the chainId can settle.
                 const accounts = (yield this.provider.request({ method: 'eth_requestAccounts' }));
